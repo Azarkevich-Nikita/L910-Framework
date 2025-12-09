@@ -1,0 +1,12 @@
+{
+    "visitors": [
+        {
+            "id":1,
+            "name":"Aleksandr Kostylev",
+            "age": 28,
+            "hasSub": true,
+            "registrationDate": "01.12.2025",
+            "visitedLanes": [1,2,5]
+        }
+    ]
+}

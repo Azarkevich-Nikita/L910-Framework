@@ -1,0 +1,12 @@
+{
+    "lanes":[
+        {
+            "id":1,
+            "type": "training",
+            "length": 25,
+            "isOccupied": false,
+            "lastCleaning": "08.12.2025",
+            "allowedSwimmers": ["Adults","Professionals"]
+        }
+    ]
+}
