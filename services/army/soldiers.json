@@ -1,0 +1,13 @@
+{
+    "soldiers":[
+        {
+            "id": 1,
+            "name": "Ignat Petrov ",
+            "rank": "Capitan",
+            "age": 25,
+            "isActive": true,
+            "enlistedAt": "2018-04-12",
+            "skills": ["marksmanship", "first aid"]
+        }
+    ]
+}
