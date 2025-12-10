@@ -9,10 +9,8 @@ async function readJSON(file){
     return JSON.parse(data);
 }
 
-async function writeJSON(file, newData){
-    const currentData = await readJSON(file);
-    currentData.push(newData);
-    await fs.writeFile(file, JSON.stringify(currentData, null, 2));
+async function writeJSON(file, data){
+    await fs.writeFile(file, JSON.stringify(data, null, 2));
 }
 
 module.exports = (app) => {
@@ -31,12 +29,102 @@ module.exports = (app) => {
         const soldier = soldiers.find(s => s.id == req.params.id);
 
         if(!soldier){
-            res.status(404).json({ error: "Soldier not founnd" });
+            res.status(404).json({ error: "Soldier not found" });
         }
         else{
             res.json(soldier);
         }
     });
+
+    //
+    //                       <-- ‼️ W A R N I N G ‼️ -->
+    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
+    //
+    app.post("/soldiers", async (req, res) => {
+        const soldiers = await readJSON(soldierPath);
+        const newSoldier = {
+            id: Date.now(),
+            name: req.body.name,
+            rank: req.body.rank,
+            age: req.body.age,
+            isActive: req.body.isActive,
+            enlistedAt: req.body.enlistedAt,
+            skills: req.body.skills
+        }
+        soldiers.push(newSoldier);
+        await writeJSON(soldierPath, soldiers);
+
+        res.status(201).json(newSoldier);
+    });
+
+    //
+    //                       <-- ‼️ W A R N I N G ‼️ -->
+    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
+    //
+    app.put("/soldiers/:id", async (req, res) => {
+        const soldiers = await readJSON(soldierPath);
+        const index = soldiers.findIndex(s => s.id == req.params.id);
+
+        if(index === -1){
+            return res.status(404).json({ error: "Soldier not found" });
+        }
+
+        soldiers[index] = {
+            id: soldiers[index].id,
+            name: req.body.name,
+            rank: req.body.rank,
+            age: req.body.age,
+            isActive: req.body.isActive,
+            enlistedAt: req.body.enlistedAt,
+            skills: req.body.skills
+        }
+
+        await writeJSON(soldierPath, soldiers);
+
+        res.json(soldiers[index]);
+    });
+
+    //
+    //                       <-- ‼️ W A R N I N G ‼️ -->
+    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
+    //
+    app.patch("/soldiers/:id", async (req, res) => {
+        const soldiers = await readJSON(soldierPath);
+        const index = soldiers.findIndex(s => s.id == req.params.id);
+
+        if(index === -1){
+            return res.status(404).json({ error: "Soldier not found" });
+        }
+
+        soldiers[index] = {
+            id: soldiers[index].id,
+            name: req.body.name ?? soldiers[index].name,
+            rank: req.body.rank ?? soldiers[index].rank,
+            age: req.body.age ?? soldiers[index].age,
+            isActive: req.body.isActive ?? soldiers[index].isActive,
+            enlistedAt: req.body.enlistedAt ?? soldiers[index].enlistedAt,
+            skills: req.body.skills ?? soldiers[index].skills
+        }
+
+        await writeJSON(soldierPath, soldiers);
+
+        res.json(soldiers[index]);
+    })
+
+
+    app.delete("/soldiers/:id", async (req, res) => {
+        let soldiers = await readJSON(soldierPath);
+        const soldiersCountBefore = soldiers.length;
+
+        soldiers = soldiers.filter(s => s.id != req.params.id);
+
+        if(soldiers.length === soldiersCountBefore){
+            return res.status(404).json({ error: "Soldier not found" });
+        }
+
+        await writeJSON(soldierPath, soldiers);
+        res.json({ message: "Soldier deleted" })
+    })
 
     //
     // <-- V E H I C L E S -->
@@ -58,4 +146,99 @@ module.exports = (app) => {
             res.json(vehicle);
         }
     })
+
+    //
+    //                       <-- ‼️ W A R N I N G ‼️ -->
+    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
+    //
+    app.post("/vehicles", async (req, res) => {
+        const vehicles = await readJSON(vehiclePath);
+        const newVehicle = {
+            id: Date.now(),
+            model: req.body.model,
+            type: req.body.type,
+            crew: req.body.crew,
+            isOperational: req.body.isOperational,
+            lastService: req.body.lastService,
+            equipment: req.body.equipment
+        }
+        vehicles.push(newVehicle);
+        await writeJSON(vehiclePath, vehicles);
+
+        res.status(201).json(newVehicle);
+    });
+
+    //
+    //                       <-- ‼️ W A R N I N G ‼️ -->
+    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
+    //
+    app.put("/vehicles/:id", async (req, res) => {
+        const vehicles = await readJSON(vehiclePath);
+        const index = vehicles.findIndex(v => v.id == req.params.id);
+
+        if(index === -1){
+            return res.status(404).json({ error: "Vehicle not found" });
+        }
+
+        vehicles[index] = {
+            id: vehicles[index].id,
+            model: req.body.model,
+            type: req.body.type,
+            crew: req.body.crew,
+            isOperational: req.body.isOperational,
+            lastService: req.body.lastService,
+            equipment: req.body.equipment
+        }
+
+        await writeJSON(vehiclePath, vehicles);
+
+        res.json(vehicles[index]);
+    });
+
+    //
+    //                       <-- ‼️ W A R N I N G ‼️ -->
+    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
+    //
+    app.patch("/vehicles/:id", async (req, res) => {
+        const vehicles = await readJSON(vehiclePath);
+        const index = vehicles.findIndex(v => v.id == req.params.id);
+
+        if(index === -1){
+            return res.status(404).json({ error: "Vehicle not found" });
+        }
+
+        vehicles[index] = {
+            id: vehicles[index].id,
+            model: req.body.model ?? vehicles[index].model,
+            type: req.body.type ?? vehicles[index].type,
+            crew: req.body.crew ?? vehicles[index].crew,
+            isOperational: req.body.isOperational ?? vehicles[index].isOperational,
+            lastService: req.body.lastService ?? vehicles[index].lastService,
+            equipment: req.body.equipment ?? vehicles[index].equipment
+        }
+
+        await writeJSON(vehiclePath, vehicles);
+
+        res.json(vehicles[index]);
+    })
+
+    app.delete("/vehicles/:id", async(req, res) => {
+        let vehicles = await readJSON(vehiclePath);
+        const vehiclesCoutBefore = vehicles.length;
+
+        vehicles = vehicles.filter(v => v.id != req.params.id);
+
+        if(vehicles.length === vehiclesCoutBefore){
+            return res.status(404).json({ error: "Vehicle not found" });
+        }
+
+        await writeJSON(vehiclePath, vehicles);
+        res.json({ message: "Vehicle deleted" });
+    })
 }
+
+/*
+
+    <-- ‼️Body parse is not implemented, and the race conditions issue is also not resolved. -->
+
+*/
