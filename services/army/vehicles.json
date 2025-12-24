@@ -1,13 +1,14 @@
-{
-    "vehicle":[
-        {
-            "id": 1,
-            "model": "T-72",
-            "type": "tank",
-            "crew": 3,
-            "isOperational": true,
-            "lastService": "2025-05-02",
-            "equipment": ["thermal vision", "reactive armor"]
-        }
+[
+  {
+    "id": 1,
+    "model": "T-72",
+    "type": "tank",
+    "crew": 3,
+    "isOperational": true,
+    "lastService": "2025-05-02",
+    "equipment": [
+      "thermal vision",
+      "reactive armor"
     ]
-}
+  }
+]

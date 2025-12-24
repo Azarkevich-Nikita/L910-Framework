@@ -1,6 +1,7 @@
 const http = require("http")
 const Router = require("./router")
 const Request = require('./request');
+const Response = require('./responce');
 
 
 class App{
@@ -35,6 +36,7 @@ class App{
 
     listen(port, callback) {
         const server = http.createServer(async (req, res) => {
+            Response(res); 
             const request = new Request(req);
 
             if (['POST', 'PUT', 'PATCH'].includes(request.method)) {

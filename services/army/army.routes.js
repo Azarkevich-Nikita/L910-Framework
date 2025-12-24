@@ -37,10 +37,6 @@ module.exports = (app) => {
         }
     });
 
-    //
-    //                       <-- ‼️ W A R N I N G ‼️ -->
-    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
-    //
     app.post("/soldiers", async (req, res) => {
         const soldiers = await readJSON(soldierPath);
         const newSoldier = {
@@ -58,10 +54,6 @@ module.exports = (app) => {
         res.status(201).json(newSoldier);
     });
 
-    //
-    //                       <-- ‼️ W A R N I N G ‼️ -->
-    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
-    //
     app.put("/soldiers/:id", async (req, res) => {
         const soldiers = await readJSON(soldierPath);
         const index = soldiers.findIndex(s => s.id == req.params.id);
@@ -85,10 +77,6 @@ module.exports = (app) => {
         res.json(soldiers[index]);
     });
 
-    //
-    //                       <-- ‼️ W A R N I N G ‼️ -->
-    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
-    //
     app.patch("/soldiers/:id", async (req, res) => {
         const soldiers = await readJSON(soldierPath);
         const index = soldiers.findIndex(s => s.id == req.params.id);
@@ -148,10 +136,6 @@ module.exports = (app) => {
         }
     })
 
-    //
-    //                       <-- ‼️ W A R N I N G ‼️ -->
-    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
-    //
     app.post("/vehicles", async (req, res) => {
         const vehicles = await readJSON(vehiclePath);
         const newVehicle = {
@@ -169,10 +153,6 @@ module.exports = (app) => {
         res.status(201).json(newVehicle);
     });
 
-    //
-    //                       <-- ‼️ W A R N I N G ‼️ -->
-    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
-    //
     app.put("/vehicles/:id", async (req, res) => {
         const vehicles = await readJSON(vehiclePath);
         const index = vehicles.findIndex(v => v.id == req.params.id);
@@ -196,10 +176,6 @@ module.exports = (app) => {
         res.json(vehicles[index]);
     });
 
-    //
-    //                       <-- ‼️ W A R N I N G ‼️ -->
-    // ❗BODY PARSER is not currently implemented. Therefore, the code is not working.
-    //
     app.patch("/vehicles/:id", async (req, res) => {
         const vehicles = await readJSON(vehiclePath);
         const index = vehicles.findIndex(v => v.id == req.params.id);
@@ -240,6 +216,6 @@ module.exports = (app) => {
 
 /*
 
-    <-- ‼️Body parse is not implemented, and the race conditions issue is also not resolved. -->
+    <-- ‼️The race conditions issue is also not resolved. -->
 
 */
