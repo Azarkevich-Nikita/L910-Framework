@@ -1,5 +1,6 @@
 const http = require("http")
 const Router = require("./router")
+const Request = require('./request');
 
 
 class App{
@@ -34,12 +35,18 @@ class App{
 
     listen(port, callback) {
         const server = http.createServer(async (req, res) => {
+            const request = new Request(req);
+
+            if (['POST', 'PUT', 'PATCH'].includes(request.method)) {
+                await request.parseBody();
+            }
+
             let idx = 0;
 
             const next = async () => {
                 if (idx < this.middlewares.length) {
                     const mw = this.middlewares[idx++];
-                    await mw(req, res, next);
+                    await mw(request, res, next);
                 }
             };
 
@@ -47,24 +54,25 @@ class App{
                 await next();
                 if (res.writableEnded) return;
 
-                const { pathname } = new URL(req.url, `http://${req.headers.host}`);
-                const route = this.router.match(req.method, pathname);
+                const route = this.router.match(request.method, request.path);
 
                 if (!route) {
                     res.statusCode = 404;
                     return res.end('Not Found');
                 }
 
-                req.params = route.params;
-                await route.handler(req, res);
+                request.params = route.params;
+                await route.handler(request, res);
             } catch (err) {
+                console.error(err);
                 res.statusCode = 500;
                 res.end('Internal Server Error');
             }
-    });
-    
-    server.listen(port, callback);
+        });
+
+        server.listen(port, callback);
     }
+
 
 }
 

@@ -1,7 +1,8 @@
 const fs = require("fs").promises;
+const path = require('path');
 
-const soldierPath = "soldiers.json";
-const vehiclePath = "vehicles.json";
+const soldierPath = path.join(__dirname, 'soldiers.json');
+const vehiclePath = path.join(__dirname, 'vehicles.json');
 
 
 async function readJSON(file){
