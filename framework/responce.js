@@ -15,7 +15,7 @@ module.exports = function enhanceResponce (res) {
     };
 
     res.json = function(data) {
-        res.setHeader("Content-Type", "apllication/json");
+        res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(data));
     };
 
