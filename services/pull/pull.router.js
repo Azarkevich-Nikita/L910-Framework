@@ -1,9 +1,10 @@
 const { error } = require("console");
 
 const fs = require("fs").promises;
+const path = require('path');
 
-const visitorsPath = 'visitors.json';
-const lanesPath = 'lanes.json';
+const lanesPath = path.join(__dirname, 'lanes.json');
+const visitorsPath = path.join(__dirname, 'visitors.json');
 
 async function ReadJson(file) {
     const data = await fs.readFile(file, 'utf-8');
@@ -110,7 +111,7 @@ module.exports = (app) => {
 
             const index = visitors.findIndex(s => s.id == id);
 
-            if(id === -1){
+            if(index === -1){
                 return res.status(404).json({error: "Can't patch => Visitor not found"});
             }
 
@@ -228,7 +229,7 @@ module.exports = (app) => {
             }
 
             const removed = lanes.splice(index, 1)[0];
-            await fs.writeFile(lanesPath, JSON.stringify(lanesPath, null, 2));
+            await fs.writeFile(lanesPath, JSON.stringify(lanes, null, 2));
 
             res.json({message: "Lanes deleted", removed});
         }
