@@ -1,0 +1,20 @@
+{
+  "name": "l910-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azarkevich-Nikita/L910-Framework.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Azarkevich-Nikita/L910-Framework/issues"
+  },
+  "homepage": "https://github.com/Azarkevich-Nikita/L910-Framework#readme"
+}
