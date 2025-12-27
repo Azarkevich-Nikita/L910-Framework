@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "name": "Anton Lapenko",
+    "specialization": "comedian",
+    "age": 39,
+    "isMovieActor": true,
+    "DayOfProduction": "2025-07-03",
+    "roles": ["Rosa", "Journalist", "Engineer"]
+  }
+]

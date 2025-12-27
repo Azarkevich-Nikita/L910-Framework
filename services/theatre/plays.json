@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Gamlet",
+    "genre": "Tragedy",
+    "castSize": 12,
+    "isCurrentlyRunning": true,
+    "lastRehearsal": "2025-11-11",
+    "stageEquipment": [
+      "theatrical light",
+      "sound system"
+    ]
+  }
+]
